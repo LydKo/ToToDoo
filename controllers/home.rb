@@ -7,7 +7,14 @@ module ToDo
       expose :tasks
 
         def call(params)
+          puts "MY PARAMS: #{params.inspect}"
+          if params[:newest]
+          @tasks = ToDo::Repositories::TaskRepository.latest_tasks
+        elsif params [:ABC]
           @tasks = ToDo::Repositories::TaskRepository.alphabetically
+        else 
+          @tasks = ToDo::Repositories::TaskRepository.all
+          end
         end
       end
 
@@ -29,16 +36,19 @@ module ToDo
           #puts params.inspect
           new_task = ToDo::Models::Task.new({name: params[:task]})
           if !new_task.name.nil? && !new_task.name.strip.empty?
-          # Zeile 12: damit beim NeuLaden und bei Leerzeichen kein neuer Punkt erscheint
+          # damit beim NeuLaden und bei Leerzeichen kein neuer Punkt erscheint
           # .strip: entfernt Leerzeichen aus String
           ToDo::Repositories::TaskRepository.create(new_task)
           # aus repositories-task_repository.rb (Pfad)
           end
 
           redirect_to "/"
+          #geht zurück zur Startseite
         end
 
       end
+
+      #CRUD = CREATE READ UPDATE DELETE - seperation of concerns! =actions voneinander trennen
 
       action 'Delete' do
         def call(params)

@@ -4,27 +4,23 @@ module ToDo
 		class TaskRepository
 			include Lotus::Repository
 
-			# Sortiermethoden 1. das letzte zum Schluss / 2.Alphabetisch
+			# Sortiermethoden 1. das Letzte zum Schluss =desc  / 2.Alphabetisch = asc
 			def self.latest_tasks
 				query do 
 					desc(:id)
+					# ordned desc (=absteigend) nach ID
 				end
 			end
 
 			def self.alphabetically
 				query do
 					asc(:name)
+					# ordnet asc (=aufsteigend) nach Name 
 				end
 			end
 		end
 	end
 end
 
-repo = ToDo::Repositories::TaskRepository.new
 
-#exemple
-#repo.all
-#repo.find (5)
-#repo.first
-#repo.later
-#repo.clear
+
