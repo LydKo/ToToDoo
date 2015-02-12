@@ -1,10 +1,25 @@
 
 <a href="/impressum">Impressum</a>
 
+
+<%if user%>
+  <p><%= user.email %></p>
+
+<form action='/sessions/signout' method='POST'>
+<input type="submit" value= "signout">
+</form>
+
+<%else%>
+<a href="/users/new">Registrieren</a>
+<a href="/users/signin">Anmelden</a>
+
+<% end %>
+
 <h1> ToDo-Liste </h1>
 
 <h3> Was gibts zu tun? </h3>
 
+<%if user%>
 <form action='/tasks/create' method='POST'>
   Schreibs hier auf: <input name="task" autofocus="true"/> 
   <!-- autofocus = damit das Eingabefeld aktiv bleibt-->
@@ -15,7 +30,7 @@
 
 <form method="GET" action="/">
 <button name="ABC">Alphabetisch</button>
-<button name="newest">Neueste zuerst</button>
+<button name="newest">Aktualität</button>
 </form>
 
 <ul>
@@ -30,3 +45,4 @@
   </li>
   <% end %>
 </ul>
+<% end %>

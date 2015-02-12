@@ -12,6 +12,14 @@ database.create_table! :tasks do
   String :name
 end
 
+database.create_table! :users do
+	primary_key :id
+	string :email
+	string :password
+end
+#legt Tabelle mit den Attributen an
+#Primärschlüssel= eindeutig, kann auch Datum sein
+
 #sqlite
 #/
 #v

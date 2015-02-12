@@ -4,7 +4,9 @@ module ToDo
       include ToDo::Controller
 
       action 'Index' do
+        include Lotus::Action::Session
       expose :tasks
+      expose :user
 
         def call(params)
           puts "MY PARAMS: #{params.inspect}"
@@ -14,9 +16,11 @@ module ToDo
           @tasks = ToDo::Repositories::TaskRepository.alphabetically
         else 
           @tasks = ToDo::Repositories::TaskRepository.all
-          end
         end
+        puts "user #{session[:user]}"
+        @user = ToDo::Repositories::UserRepository.by_id(session[:user])
       end
+    end
 
           # Zeile 14: Befehl aus https://github.com/lotus/model -> repositories
 
