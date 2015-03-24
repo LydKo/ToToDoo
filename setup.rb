@@ -4,7 +4,7 @@ require 'lotus/model'
 require 'lotus/model/adapters/sql_adapter'
 
 require 'dotenv'
-Datenv.load
+Dotenv.load
 
 CONNECTION_URI = ENV['DATABASE_URL']
 
