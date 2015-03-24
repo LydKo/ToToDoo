@@ -18,8 +18,8 @@ end
 
 database.create_table! :users do
 	primary_key :id
-	string :email
-	string :password
+	String :email
+	String :password
 end
 #legt Tabelle mit den Attributen an
 #Primärschlüssel= eindeutig, kann auch Datum sein

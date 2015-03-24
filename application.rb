@@ -31,7 +31,7 @@ module ToDo
   end
 
   require 'dotenv'
-  Datenv.load
+  Dotenv.load
 
   CONNECTION_URI = ENV['DATABASE_URL']
   Lotus::Model.configure do
