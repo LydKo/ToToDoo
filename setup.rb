@@ -1,10 +1,10 @@
 require 'bundler/setup'
-require 'sqlite3'
+#require 'sqlite3'
 require 'lotus/model'
 require 'lotus/model/adapters/sql_adapter'
 
-  require 'dotenv'
-  Datenv.load
+require 'dotenv'
+Datenv.load
 
 CONNECTION_URI = ENV['DATABASE_URL']
 
