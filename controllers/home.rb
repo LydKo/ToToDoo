@@ -9,13 +9,16 @@ module ToDo
       expose :user
 
         def call(params)
+          user_id = session[:user]
+          puts 'SESSION: #{user_id}'
           puts "MY PARAMS: #{params.inspect}"
           if params[:newest]
-          @tasks = ToDo::Repositories::TaskRepository.latest_tasks
+          @tasks = ToDo::Repositories::TaskRepository.latest_tasks(user_id)
         elsif params [:ABC]
-          @tasks = ToDo::Repositories::TaskRepository.alphabetically
+          @tasks = ToDo::Repositories::TaskRepository.alphabetically(user_id)
         else 
-          @tasks = ToDo::Repositories::TaskRepository.all
+          @tasks = ToDo::Repositories::TaskRepository.for_user(user_id)
+          # vorher "all" = alle user - for_user = für best. user
         end
         puts "user #{session[:user]}"
         @user = ToDo::Repositories::UserRepository.by_id(session[:user])
@@ -36,9 +39,14 @@ module ToDo
       
       action "Create" do
 
+      include Lotus::Action::Session
       def call(params)
           #puts params.inspect
-          new_task = ToDo::Models::Task.new({name: params[:task]})
+          new_task = ToDo::Models::Task.new({
+            name: params[:task],
+            user_id: session[:user]
+          })
+          # neuer Task angelegt mit Name und user_id für session (als hash)
           if !new_task.name.nil? && !new_task.name.strip.empty?
           # damit beim NeuLaden und bei Leerzeichen kein neuer Punkt erscheint
           # .strip: entfernt Leerzeichen aus String
